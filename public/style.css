@@ -44,3 +44,14 @@ button:hover {
   margin-top: 10px;
   font-weight: 500;
 }
+
+.error {
+    color: rgb(255, 0, 0);
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.box {
+    text-align: center;
+    margin: 20px auto;
+}

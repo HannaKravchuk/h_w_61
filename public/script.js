@@ -1,4 +1,5 @@
 const msg = document.getElementById('message');
+const loginError = document.getElementById('loginError');
 
 registerForm.onsubmit = async (e) => {
   e.preventDefault();
@@ -11,11 +12,15 @@ registerForm.onsubmit = async (e) => {
       role: rRole.value
     })
   });
+
   msg.textContent = await res.text();
+  msg.style.color = res.ok ? 'green' : 'red';
 };
 
 loginForm.onsubmit = async (e) => {
   e.preventDefault();
+  loginError.textContent = '';
+
   const res = await fetch('/api/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -24,11 +29,14 @@ loginForm.onsubmit = async (e) => {
       password: lPass.value
     })
   });
-  const data = await res.json();
-  if (data.token) {
-    localStorage.setItem('token', data.token);
-    window.location = '/dashboard.html';
-  } else {
-    msg.textContent = 'Login error. Please try again.';
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    loginError.textContent = errorText; 
+    return;
   }
+
+  const data = await res.json();
+  localStorage.setItem('token', data.token);
+  window.location = '/dashboard.html';
 };

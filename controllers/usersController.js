@@ -1,5 +1,5 @@
 exports.getUsers = (req, res) => {
-  res.send('All users visible to logged-in users');
+  res.send('User list avaible to admins only');
 };
 
 exports.getUserById = (req, res) => {

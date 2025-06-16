@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Personal account</h1>
-  <p id="content">Downloading...</p>
+  <p id="content" class="box">Downloading...</p>
   <button onclick="logout()">Log out</button>
 
   <script>
@@ -17,7 +17,7 @@
     })
       .then(res => res.ok ? res.text() : Promise.reject())
       .then(txt => document.getElementById('content').textContent = txt)
-      .catch(() => document.getElementById('content').textContent = 'Доступ заборонено');
+      .catch(() => document.getElementById('content').textContent = 'Access denied');
 
     function logout() {
       localStorage.removeItem('token');
